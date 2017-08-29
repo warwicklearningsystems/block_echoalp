@@ -31,11 +31,13 @@ $editurl = new moodle_url('/blocks/echoalp/viewecho.php', array('courseid' => $c
 $editnode = $settingsnode->add(get_string('pluginname', 'block_echoalp'), $editurl);
 $editnode->make_active();
 
+// Setup LTI
 $le = new ltiecho();
+$ltidata = $le->configurelti($course->id);
 
 // Display LTI
 echo $OUTPUT->header();
-$le->display($course);
+$le->display($ltidata);
 echo $OUTPUT->footer();
 
 ?>

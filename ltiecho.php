@@ -2,27 +2,35 @@
 
 class ltiecho {
 
-    function display($course) {
+    private $courseid = null;
+    private $ltidata = null;
+
+    public function display() {
 
         global $DB, $CFG, $PAGE;
 
-        $debuglaunch = FALSE;
-        $ltidata = $this->configurelti(1, $course->id);
-        $content = lti_post_launch_html($ltidata->parameters, $ltidata->endpoint, $debuglaunch);
-        echo $content;
+        if($this->ltidata) {
+            $debuglaunch = FALSE;
+            $content = lti_post_launch_html($this->ltidata->parameters, $this->ltidata->endpoint, $debuglaunch);
+            echo $content;
+        }
     }
 
-    private function configurelti($ltitypeid, $courseid)
+    public function configurelti($courseid)
     {
+        // Configure the LTI instance ready for launch
         global $DB, $CFG, $PAGE;
         require_once($CFG->dirroot . '/mod/lti/lib.php');
         require_once($CFG->dirroot . '/mod/lti/locallib.php');
 
+        $this->courseid = $courseid;
+
         $i = new stdClass();
-        $i->id = 11351351351;
-        $i->typeid = $ltitypeid;
+        $i->id = "COURSE" . $courseid;
+        $i->typeid = $this->getLTIType();
         $i->course = $courseid;
         $i->instructorcustomparameters = array();
+        $i->launchcontainer = LTI_LAUNCH_CONTAINER_EMBED_NO_BLOCKS;
 
         list($endpoint, $parms) = lti_get_launch_data($i);
 
@@ -31,14 +39,21 @@ class ltiecho {
             $parameters[$name] = $value;
         }
 
-        $result = new stdClass();
-        $result->endpoint = $endpoint;
-        $result->parameters = $parameters;
+        $this->ltidata->endpoint = $endpoint;
+        $this->ltidata->parameters = $parameters;
         //$result['warnings'] = $warnings;
-
-        return $result;
     }
 
+    private function getLTIType()
+    {
+      $ltitype = 120;
 
+      $lticonfigtype = get_config('echoalp', 'ltitool');
+      if($lticonfigtype != '') {
+          $ltitype =  $lticonfigtype;
+      }
+
+      return $ltitype;
+    }
 
 }

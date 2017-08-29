@@ -24,11 +24,21 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$settings->add(new admin_setting_heading('sampleheader',
-                                         get_string('headerconfig', 'block_echoalp'),
-                                         get_string('descconfig', 'block_echoalp')));
+$settings->add(new admin_setting_heading('echoalpblock',
+                                         "Echo ALP block",
+                                         "Echo ALP configuration options"));
 
-$settings->add(new admin_setting_configcheckbox('newblock/foo',
-                                                get_string('labelfoo', 'block_echoalp'),
-                                                get_string('descfoo', 'block_echoalp'),
-                                                '0'));
+$lttypes = $DB->get_records('lti_types', array('course' => 1));
+$optionslti = array();
+
+foreach($lttypes as $lt) {
+    $optionslti[ $lt->id ] = $lt->name;
+}
+
+$settings->add( new admin_setting_configselect("echoalp/ltitool",
+                                                "LTI tool",
+                                                "Preconfigured LTI to use for block",
+                                                "1",
+                                                $optionslti) );
+
+
