@@ -24,13 +24,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once($CFG->dirroot.'/mod/lti/locallib.php');
+
 $settings->add(new admin_setting_heading('echoalpblock',
                                          "Echo ALP block",
                                          "Echo ALP configuration options"));
 
+// Which pre-configured LTI tool to use
 $lttypes = $DB->get_records('lti_types', array('course' => 1));
 $optionslti = array();
-
 foreach($lttypes as $lt) {
     $optionslti[ $lt->id ] = $lt->name;
 }
@@ -41,4 +43,14 @@ $settings->add( new admin_setting_configselect("echoalp/ltitool",
                                                 "1",
                                                 $optionslti) );
 
+// How to open
+$openoptions = array(LTI_LAUNCH_CONTAINER_EMBED => get_string('embed', 'lti'),
+                     LTI_LAUNCH_CONTAINER_EMBED_NO_BLOCKS => get_string('embed_no_blocks', 'lti'),
+                     LTI_LAUNCH_CONTAINER_WINDOW => get_string('new_window', 'lti'),
+                     LTI_LAUNCH_CONTAINER_REPLACE_MOODLE_WINDOW => get_string('existing_window', 'lti'));
 
+$settings->add( new admin_setting_configselect("echoalp/ltiopen",
+    "Launch container",
+    "How to open the Echo link",
+    LTI_LAUNCH_CONTAINER_WINDOW,
+    $openoptions) );

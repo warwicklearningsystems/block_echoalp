@@ -3,15 +3,16 @@
 class ltiecho {
 
     private $courseid = null;
-    private $ltidata = null;
+    private $endpoint = null;
+    private $parameters = null;
 
     public function display() {
 
         global $DB, $CFG, $PAGE;
 
-        if($this->ltidata) {
+        if($this->endpoint && $this->parameters) {
             $debuglaunch = FALSE;
-            $content = lti_post_launch_html($this->ltidata->parameters, $this->ltidata->endpoint, $debuglaunch);
+            $content = lti_post_launch_html($this->parameters, $this->endpoint, $debuglaunch);
             echo $content;
         }
     }
@@ -39,8 +40,8 @@ class ltiecho {
             $parameters[$name] = $value;
         }
 
-        $this->ltidata->endpoint = $endpoint;
-        $this->ltidata->parameters = $parameters;
+        $this->endpoint = $endpoint;
+        $this->parameters = $parameters;
         //$result['warnings'] = $warnings;
     }
 
