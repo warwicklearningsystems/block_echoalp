@@ -35,3 +35,5 @@ $string['imagealt'] = 'Echo 360';
 $string['viewecho'] = 'View lecture recordings';
 $string['echo_in_newwindow'] = 'Your lecture capture recordings have opened in a new window.';
 $string['echo_in_newwindow_open'] = 'Click here to open lecture recordings in a new window.';
+
+$string['privacy:metadata'] = 'The block holds no data and only displays a link to Echo 360 ALP.';
