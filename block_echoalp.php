@@ -87,7 +87,7 @@ class block_echoalp extends block_base {
     }
 
     public function hide_header() {
-        return true;
+        return false;
     }
 
     public function instance_allow_multiple() {
