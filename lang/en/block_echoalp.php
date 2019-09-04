@@ -37,3 +37,6 @@ $string['echo_in_newwindow'] = 'Your lecture capture recordings have opened in a
 $string['echo_in_newwindow_open'] = 'Click here to open lecture recordings in a new window.';
 
 $string['privacy:metadata'] = 'The block holds no data and only displays a link to Echo 360 ALP.';
+
+$string['echoalp:myaddinstance'] = 'Manage Echo ALP blocks';
+$string['echoalp:addinstance'] = 'Add an instance of the Echo ALP block';
