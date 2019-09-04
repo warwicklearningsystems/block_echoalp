@@ -87,7 +87,11 @@ class block_echoalp extends block_base {
     }
 
     public function hide_header() {
+      if ($this->page->user_is_editing()) {
         return false;
+      } else {
+        return true;
+      }
     }
 
     public function instance_allow_multiple() {
