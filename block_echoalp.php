@@ -56,7 +56,7 @@ class block_echoalp extends block_base {
         $content = '';
         $content .= html_writer::start_tag('a', array('href' => $link, 'class' => 'name'));
         $content .= html_writer::empty_tag('img', array(
-            'src' => $OUTPUT->pix_url('echo360_logo_622x298', 'block_echoalp'),
+            'src' => $OUTPUT->image_url('echo360_logo_622x298', 'block_echoalp'),
             'title' => get_string('imagealt', 'block_echoalp'),
             'alt' => get_string('imagealt', 'block_echoalp'),
             'width' => '100%',
