@@ -36,12 +36,13 @@ $optionslti = array();
 foreach($lttypes as $lt) {
     $optionslti[ $lt->id ] = $lt->name;
 }
-
-$settings->add( new admin_setting_configselect("echoalp/ltitool",
+if(count($optionslti) > 0){
+    $settings->add( new admin_setting_configselect("echoalp/ltitool",
                                                 "LTI tool",
                                                 "Preconfigured LTI to use for block",
                                                 "1",
                                                 $optionslti) );
+}
 
 // How to open
 $openoptions = array(LTI_LAUNCH_CONTAINER_EMBED => get_string('embed', 'lti'),
